@@ -206,10 +206,10 @@ iptables -A INPUT -p udp -j DROP
 - `iptables -A INPUT -p tcp -j DROP`: Menolak semua koneksi TCP kecuali yang menuju port 8080.
 
 - `iptables -A INPUT -p udp -j DROP`: Menolak semua koneksi UDP tanpa pengecualian.<br>
-> Tes Berhasil<br>
+- Tes Berhasil<br>
 ![Foto](./img/2a.png)
 ![Foto](./img/2b.png)
-> Tes Gagal<br>
+- Tes Gagal<br>
 ![Foto](./img/2c.png)
 ![Foto](./img/2d.png)
 ![Foto](./img/2e.png)
@@ -249,10 +249,10 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 
 - `iptables -A INPUT -p tcp --dport 22 -j DROP`: Perintah ini menambahkan aturan pada chain INPUT untuk semua koneksi TCP pada port 22 untuk ditolak (DROP). Ini berarti bahwa koneksi SSH dari IP lain, yang tidak termasuk dalam aturan pertama, akan ditolak atau diblokir oleh firewall.
 Jika ditest, maka pesan yang dikirim dari sein atau stark hanya bisa diterima oleh client GrobeForest <br>
-> Berhasil<br>
+- Berhasil<br>
 ![Foto](./img/4a.png)
 ![Foto](./img/4b.png)
-> Gagal<br>
+- Gagal<br>
 ![Foto](./img/4c.png)
 ![Foto](./img/4d.png)
 
@@ -268,10 +268,10 @@ iptables -A INPUT -p tcp --dport 22 -j DROP
 - `iptables -A INPUT -p tcp --dport 22 -s 192.177.4.0/22 -m time --timestart 08:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT`: Perintah ini menambahkan aturan pada chain INPUT untuk protokol TCP dan tujuan port 22 (SSH) untuk menerima koneksi dari rentang IP 192.177.4.0 hingga 192.177.7.255 (CIDR /22) pada waktu yang telah ditentukan. Aturan ini memperbolehkan koneksi SSH dari rentang IP tersebut pada hari Senin hingga Jumat antara pukul 08:00 hingga 16:00.
 
 - `iptables -A INPUT -p tcp --dport 22 -j DROP`: Perintah ini menambahkan aturan pada chain INPUT untuk semua koneksi TCP pada port 22 untuk ditolak (DROP). Ini berarti bahwa koneksi SSH dari sumber yang tidak termasuk dalam aturan pertama akan ditolak pada port 22.<br>
-> Tes Berhasil <br>
+- Tes Berhasil <br>
 ![Foto](./img/5a.png)
 ![Foto](./img/5b.png)
-> Tes Gagal <br>
+- Tes Gagal <br>
 ![Foto](./img/5c.png)
 ![Foto](./img/5d.png)
 
@@ -287,13 +287,13 @@ iptables -A INPUT -m time --timestart 11:00 --timestop 13:00 --weekdays Fri -j R
 - `iptables -A INPUT -m time --timestart 12:00 --timestop 13:00 --weekdays Mon,Tue,Wed,Thu -j REJECT`: Perintah ini menambahkan aturan pada chain INPUT untuk menolak (REJECT) semua koneksi yang masuk pada hari Senin hingga Kamis antara pukul 12:00 hingga 13:00. Artinya, pada rentang waktu tersebut di hari yang ditentukan, tidak ada koneksi yang akan diterima oleh sistem.
 
 - `iptables -A INPUT -m time --timestart 11:00 --timestop 13:00 --weekdays Fri -j REJECT`: Perintah ini menambahkan aturan pada chain INPUT untuk menolak (REJECT) semua koneksi yang masuk pada hari Jumat antara pukul 11:00 hingga 13:00. Ini berarti bahwa pada hari Jumat, koneksi akan ditolak selama rentang waktu yang ditentukan.<br>
-> Tes Berhasil <br>
+- Tes Berhasil <br>
 ![Foto](./img/6a.png)
 ![Foto](./img/6b.png)
-> Tes Gagal <br>
+- Tes Gagal <br>
 ![Foto](./img/6c.png)
 ![Foto](./img/6d.png)
-> Tes Gagal (Di jam sholat jumat)<br>
+- Tes Gagal (Di jam sholat jumat)<br>
 ![Foto](./img/6e.png)
 ![Foto](./img/6f.png)
 
@@ -321,9 +321,9 @@ while true; do nc -l -p 443 -c 'echo "ini sein"'; done #sein
 while true; do nc -l -p 443 -c 'echo "ini stark"'; done #stark
 ```
 Dengan cara ini, dapat diuji coba apakah koneksi terbuka dengan benar pada port yang diinginkan untuk server Sein dan Stark melalui client.
-> Port 80 <br>
+- Port 80 <br>
 ![Foto](./img/7b.png)<br>
-> Port 443 <br>
+- Port 443 <br>
 ![Foto](./img/7c.png)
 
 ## Soal 8
@@ -335,11 +335,11 @@ iptables -A INPUT -p tcp --dport 80 -s 192.237.1.104/30 -m time --datestart 2023
 ```
 Aturan ini menambahkan pada chain INPUT aturan iptables untuk protokol TCP dan tujuan port 80. Koneksi dari rentang IP 192.237.1.104/30 akan ditolak (DROP) antara tanggal 10 Desember 2023 hingga 15 Februari 2024. Hal ini mengakibatkan koneksi dari rentang IP tersebut pada port 80 akan diblokir selama periode waktu yang telah ditentukan.<br>
 ![Foto](./img/8a.png)
-> Tes Turk Region (Berhasil)<br>
+- Tes Turk Region (Berhasil)<br>
 ![Foto](./img/8turksukses.png)<br>
-> Tes Revolte (Gagal)<br>
+- Tes Revolte (Gagal)<br>
 ![Foto](./img/8revoltegagal.png)<br>
-> Tes Revolte (Berhasil)<br>
+- Tes Revolte (Berhasil)<br>
 ![Foto](./img/8revoltesukses.png)</br>
 
 ## Soal 9
