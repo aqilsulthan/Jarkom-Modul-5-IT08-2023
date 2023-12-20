@@ -379,3 +379,6 @@ iptables -A INPUT  -j LOG --log-level debug --log-prefix 'Dropped Packet' -m lim
 Perintah ini menambahkan aturan pada chain INPUT untuk mencatat pesan log setiap kali ada paket yang ditolak (DROP) oleh firewall dengan level debug. Pesan log ini akan memiliki awalan 'Dropped Packet'. Selain mencatat log, perintah juga membatasi jumlah pesan log yang dicatat dengan batas satu pesan per detik dan puncak burst sebanyak 10 pesan.<br>
 Untuk melakukan logging kami melakukan port scanning, hal yang sama dengan no 9, lalu mengecek hasil log di `iptables -L`<br>
 ![Foto](./img/10.png)
+
+## Resmi Menamatkan Praktikum Jarkom 🙏🙏🙏
+![Foto](./img/tamat.png)
