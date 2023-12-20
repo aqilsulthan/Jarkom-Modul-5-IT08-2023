@@ -14,7 +14,6 @@ Adimas Defatra Bimasena | 5027211040
 ## Modul 5
 
 ## Daftar Soal :
-- [Soal 0](#soal-0)
 - [Soal 1](#soal-1)
 - [Soal 2](#soal-2)
 - [Soal 3](#soal-3)
