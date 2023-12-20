@@ -373,3 +373,9 @@ Jika ditest, maka client tidak bisa melakukan scanning port lebih dari 20 scanni
 ## Soal 10
 Karena kepala suku ingin tau paket apa saja yang di-drop, maka di setiap node server dan router ditambahkan logging paket yang di-drop dengan standard syslog level.
 ### Penjelasan:
+Untuk melakukan logging paket yang di-drop, dapat menambahkan sintaks berikut
+```
+iptables -A INPUT  -j LOG --log-level debug --log-prefix 'Dropped Packet' -m limit --limit 1/second --limit-burst 10
+```
+Perintah ini menambahkan aturan pada chain INPUT untuk mencatat pesan log setiap kali ada paket yang ditolak (DROP) oleh firewall dengan level debug. Pesan log ini akan memiliki awalan 'Dropped Packet'. Selain mencatat log, perintah juga membatasi jumlah pesan log yang dicatat dengan batas satu pesan per detik dan puncak burst sebanyak 10 pesan.<br>
+![Foto](./img/10.png)
