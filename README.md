@@ -186,7 +186,7 @@ iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 192237.0
 - `IPETH0="$(ip -br a | grep eth0 | awk '{print $NF}' | cut -d'/' -f1)"` mengumpulkan IP yang terhubung dengan interface eth0 pada node dengan mengambil nilai IP dari output perintah ip -br a, kemudian menggunakan grep, awk, dan cut untuk mendapatkan nilai IP yang tepat dan menyimpannya dalam variabel IPETH0.
 - `iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 192237.0.0/20` menetapkan aturan pada tabel NAT untuk paket yang keluar melalui interface eth0. Ini menggunakan SNAT untuk mengubah alamat sumber paket-paket tersebut dengan nilai yang ada dalam variabel IPETH0. Aturan ini berlaku hanya untuk paket-paket yang berasal dari subnet 192237.0.0/20, memungkinkan akses internet keluar tanpa menggunakan MASQUERADE.
 Berikut hasil testing yang dilakukan pada node Stark
-<br>
+
 ![Foto](./img/1.png)
 
 ## Soal 2
