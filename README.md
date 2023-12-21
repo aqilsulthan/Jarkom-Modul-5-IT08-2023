@@ -302,8 +302,11 @@ Karena terdapat 2 WebServer, kalian diminta agar setiap client yang mengakses Se
 Untuk menjalankan rules diatas dapat mengaktifkan aturan pada iptables di router yang terhubung dengan web server, yaitu himmel dan heiter dengan sintaks berikut.
 ```
 iptables -A PREROUTING -t nat -p tcp --dport 80 -d 192.237.4.2 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.237.4.2
+
 iptables -A PREROUTING -t nat -p tcp --dport 80 -d 192.237.4.2 -j DNAT --to-destination 192.237.1.118
+
 iptables -A PREROUTING -t nat -p tcp --dport 443 -d 192.237.1.118 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.237.1.118
+
 iptables -A PREROUTING -t nat -p tcp --dport 443 -d 192.237.1.118 -j DNAT --to-destination 192.237.4.2
 ```
 ![Foto](./img/7a.png) <br>
@@ -311,12 +314,14 @@ Setelah melakukan iptables, uji coba dapat dilakukan dengan membuka koneksi pada
 ```
 Port 80
 while true; do nc -l -p 80 -c 'echo "ini sein"'; done #sein
+
 while true; do nc -l -p 80 -c 'echo "ini stark"'; done #stark
 ```
 Untuk port 443, dapat menggunakan sintaks berikut
 ```
 Port 443
 while true; do nc -l -p 443 -c 'echo "ini sein"'; done #sein
+
 while true; do nc -l -p 443 -c 'echo "ini stark"'; done #stark
 ```
 Dengan cara ini, dapat diuji coba apakah koneksi terbuka dengan benar pada port yang diinginkan untuk server Sein dan Stark melalui client.
