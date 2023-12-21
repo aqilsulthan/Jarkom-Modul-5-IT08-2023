@@ -309,6 +309,9 @@ iptables -A PREROUTING -t nat -p tcp --dport 443 -d 192.237.1.118 -m statistic -
 
 iptables -A PREROUTING -t nat -p tcp --dport 443 -d 192.237.1.118 -j DNAT --to-destination 192.237.4.2
 ```
+- Kode pertama dan ketiga melakukan penerusan paket yang sama untuk lalu lintas TCP pada port 80 dan 443 ke alamat 192.237.4.2 dan 192.237.1.118 secara bergantian (setiap paket kedua).
+
+- Kode kedua dan keempat juga melakukan penerusan paket pada port yang sama (80 dan 443) ke alamat yang berbeda (192.237.1.118 dan 192.237.4.2).<br>
 ![Foto](./img/7a.png) <br>
 Setelah melakukan iptables, uji coba dapat dilakukan dengan membuka koneksi pada web server, yakni Sein dan Stark, menggunakan sintaks berikut di port 80
 ```
@@ -361,15 +364,15 @@ iptables -A INPUT -m recent --name portscan --set -j ACCEPT
 
 iptables -A FORWARD -m recent --name portscan --set -j ACCEPT
 ```
-`iptables -N portscan`: Membuat sebuah chain baru yang disebut "portscan".
+- `iptables -N portscan`: Membuat sebuah chain baru yang disebut "portscan".
 
-`iptables -A INPUT -m recent --name portscan --update --seconds 600 --hitcount 20 -j DROP`: Menetapkan aturan pada chain INPUT untuk menolak paket-paket yang masuk jika ada 20 atau lebih koneksi dalam waktu 600 detik ke port yang sama. Ini bertujuan untuk melindungi dari serangan port scanning dengan menolak koneksi jika ambang batas tersebut tercapai.
+- `iptables -A INPUT -m recent --name portscan --update --seconds 600 --hitcount 20 -j DROP`: Menetapkan aturan pada chain INPUT untuk menolak paket-paket yang masuk jika ada 20 atau lebih koneksi dalam waktu 600 detik ke port yang sama. Ini bertujuan untuk melindungi dari serangan port scanning dengan menolak koneksi jika ambang batas tersebut tercapai.
 
-`iptables -A FORWARD -m recent --name portscan --update --seconds 600 --hitcount 20 -j DROP`: Sama seperti aturan sebelumnya, namun ditujukan untuk paket yang dilalui melalui chain FORWARD.
+- `iptables -A FORWARD -m recent --name portscan --update --seconds 600 --hitcount 20 -j DROP`: Sama seperti aturan sebelumnya, namun ditujukan untuk paket yang dilalui melalui chain FORWARD.
 
-`iptables -A INPUT -m recent --name portscan --set -j ACCEPT`: Mengatur aturan pada chain INPUT untuk mengizinkan (ACCEPT) paket-paket yang memicu aturan jika koneksi tidak melebihi ambang batas yang ditetapkan.
+- `iptables -A INPUT -m recent --name portscan --set -j ACCEPT`: Mengatur aturan pada chain INPUT untuk mengizinkan (ACCEPT) paket-paket yang memicu aturan jika koneksi tidak melebihi ambang batas yang ditetapkan.
 
-`iptables -A FORWARD -m recent --name portscan --set -j ACCEPT`: Sama seperti aturan sebelumnya, namun ditujukan untuk mengizinkan paket-paket yang dilalui melalui chain FORWARD jika koneksi tidak melebihi ambang batas yang ditetapkan.
+- `iptables -A FORWARD -m recent --name portscan --set -j ACCEPT`: Sama seperti aturan sebelumnya, namun ditujukan untuk mengizinkan paket-paket yang dilalui melalui chain FORWARD jika koneksi tidak melebihi ambang batas yang ditetapkan.
 ![Foto](./img/9a.png)<br>
 Jika ditest, maka client tidak bisa melakukan scanning port lebih dari 20 scanning port.
 ![Foto](./img/9b.png)<br>
