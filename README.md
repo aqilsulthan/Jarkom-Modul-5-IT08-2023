@@ -181,10 +181,10 @@ Agar koneksi internet bagi Aura dan node lain bisa terkoneksi tanpa menggunakan 
 ```
 IPETH0="$(ip -br a | grep eth0 | awk '{print $NF}' | cut -d'/' -f1)"
 
-iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 192237.0.0/20
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 192.237.0.0/20
 ```
 - `IPETH0="$(ip -br a | grep eth0 | awk '{print $NF}' | cut -d'/' -f1)"` mengumpulkan IP yang terhubung dengan interface eth0 pada node dengan mengambil nilai IP dari output perintah ip -br a, kemudian menggunakan grep, awk, dan cut untuk mendapatkan nilai IP yang tepat dan menyimpannya dalam variabel IPETH0.
-- `iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 192237.0.0/20` menetapkan aturan pada tabel NAT untuk paket yang keluar melalui interface eth0. Ini menggunakan SNAT untuk mengubah alamat sumber paket-paket tersebut dengan nilai yang ada dalam variabel IPETH0. Aturan ini berlaku hanya untuk paket-paket yang berasal dari subnet 192237.0.0/20, memungkinkan akses internet keluar tanpa menggunakan MASQUERADE.
+- `iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 192.237.0.0/20` menetapkan aturan pada tabel NAT untuk paket yang keluar melalui interface eth0. Ini menggunakan SNAT untuk mengubah alamat sumber paket-paket tersebut dengan nilai yang ada dalam variabel IPETH0. Aturan ini berlaku hanya untuk paket-paket yang berasal dari subnet 192.237.0.0/20, memungkinkan akses internet keluar tanpa menggunakan MASQUERADE.
 Berikut hasil testing yang dilakukan pada node Stark
 
 ![Foto](./img/1.png)
@@ -260,11 +260,11 @@ Selain itu, akses menuju WebServer hanya diperbolehkan saat jam kerja yaitu Seni
 ### Penjelasan:
 Untuk membatasi akses menuju webserver sesuai jam kerja, sintaks yang dapat digunakan seperti berikut
 ```
-iptables -A INPUT -p tcp --dport 22 -s 192.177.4.0/22 -m time --timestart 08:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -s 192.237.4.0/22 -m time --timestart 08:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
 
 iptables -A INPUT -p tcp --dport 22 -j DROP
 ```
-- `iptables -A INPUT -p tcp --dport 22 -s 192.177.4.0/22 -m time --timestart 08:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT`: Perintah ini menambahkan aturan pada chain INPUT untuk protokol TCP dan tujuan port 22 (SSH) untuk menerima koneksi dari rentang IP 192.177.4.0 hingga 192.177.7.255 (CIDR /22) pada waktu yang telah ditentukan. Aturan ini memperbolehkan koneksi SSH dari rentang IP tersebut pada hari Senin hingga Jumat antara pukul 08:00 hingga 16:00.
+- `iptables -A INPUT -p tcp --dport 22 -s 192.237.4.0/22 -m time --timestart 08:00 --timestop 16:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT`: Perintah ini menambahkan aturan pada chain INPUT untuk protokol TCP dan tujuan port 22 (SSH) untuk menerima koneksi dari rentang IP 192.237.4.0 hingga 192.237.7.255 (CIDR /22) pada waktu yang telah ditentukan. Aturan ini memperbolehkan koneksi SSH dari rentang IP tersebut pada hari Senin hingga Jumat antara pukul 08:00 hingga 16:00.
 
 - `iptables -A INPUT -p tcp --dport 22 -j DROP`: Perintah ini menambahkan aturan pada chain INPUT untuk semua koneksi TCP pada port 22 untuk ditolak (DROP). Ini berarti bahwa koneksi SSH dari sumber yang tidak termasuk dalam aturan pertama akan ditolak pada port 22.<br>
 - Tes Berhasil <br>
