@@ -312,7 +312,7 @@ iptables -A PREROUTING -t nat -p tcp --dport 443 -d 192.237.1.118 -j DNAT --to-d
 - Kode pertama dan ketiga melakukan penerusan paket yang sama untuk lalu lintas TCP pada port 80 dan 443 ke alamat 192.237.4.2 dan 192.237.1.118 secara bergantian (setiap paket kedua).
 
 - Kode kedua dan keempat juga melakukan penerusan paket pada port yang sama (80 dan 443) ke alamat yang berbeda (192.237.1.118 dan 192.237.4.2).<br>
-![Foto](./img/7a.png) <br>
+![Foto](./img/7a.png)
 Setelah melakukan iptables, uji coba dapat dilakukan dengan membuka koneksi pada web server, yakni Sein dan Stark, menggunakan sintaks berikut di port 80
 ```
 Port 80
